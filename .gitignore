@@ -1,0 +1,6 @@
+Plaintext
+__pycache__/
+*.pyc
+.env
+venv/
+.ipynb_checkpoints/
