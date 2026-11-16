@@ -2,11 +2,13 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
+# Copiar dependencias e instalarlas
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./app ./app
+# Copiar el código de la aplicación y el módulo de observabilidad
+COPY . .
 
-EXPOSE 8000
-
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Exponer puerto referencial y arrancar leyendo la variable dinámica $PORT de Render
+EXPOSE 10000
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-10000}"]
